@@ -1,0 +1,46 @@
+.keyboard {
+  width: 588px;
+  /* height: 255px; */
+  margin: 100px auto;
+
+  display: grid;
+  grid-template-columns: repeat(588, 1fr);
+  grid-template-rows: repeat(5, 40px);
+  row-gap: 1px;
+}
+
+.key {
+  grid-column: auto / span 40;
+  border: 1px solid #c4c4c4;
+  margin: 0 1px;
+
+  border-radius: 3px;
+}
+
+.key.bigonetwo {
+  grid-column: auto / span 68;
+}
+
+.key.bigthree {
+  grid-column: auto / span 74;
+}
+
+.key.bigfour {
+  grid-column: auto / span 94;
+}
+
+.key.ctrl {
+  grid-column: auto / span 90;
+}
+
+.key.option {
+  grid-column: auto / span 70;
+}
+
+.key.space {
+  grid-column: auto / span 280;
+}
+
+.key.empty {
+  grid-column: auto / span 78;
+}

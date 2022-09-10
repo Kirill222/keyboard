@@ -1,0 +1,43 @@
+.key {
+  grid-column: auto / span 40;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  border: 1px solid #c4c4c4;
+  margin: 0 1px;
+  font-size: 15px;
+  line-height: 15px;
+
+  border-radius: 3px;
+}
+
+.key.bigonetwo {
+  grid-column: auto / span 68;
+}
+
+.key.bigthree {
+  grid-column: auto / span 74;
+}
+
+.key.bigfour {
+  grid-column: auto / span 94;
+}
+
+.key.ctrl {
+  grid-column: auto / span 90;
+}
+
+.key.option {
+  grid-column: auto / span 70;
+}
+
+.key.space {
+  grid-column: auto / span 280;
+}
+
+.key.empty {
+  grid-column: auto / span 78;
+}
