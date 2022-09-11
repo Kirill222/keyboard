@@ -6,25 +6,27 @@ import Task from './components/Task/Task'
 import { symbols } from './data/symbols'
 
 function App() {
-  const [task, setTask] = useState('I am Batman!')
+  const [task, setTask] = useState('i am Batman!')
   const [currentSymbol, setCurrentSymbol] = useState(0)
   const [currentCharCode, setCurrentCharCode] = useState(
     task.charCodeAt(currentSymbol)
   )
 
-  console.log(currentCharCode)
-
   const next = () => {
     setCurrentSymbol((prev) => {
-      console.log(prev++)
+      prev++
       if (prev === task.length) {
         alert('Finish')
         prev = 0
         return prev
       }
-      return prev++
+      return prev
     })
+
+    setCurrentCharCode(task.charCodeAt(currentSymbol))
   }
+
+  console.log(currentCharCode)
 
   return (
     <div className='App'>

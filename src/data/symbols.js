@@ -116,6 +116,7 @@ export const symbols = [
     id: '23',
     lower: 'i',
     upper: 'I',
+    // lowerCode: 105,
   },
   {
     id: '24',

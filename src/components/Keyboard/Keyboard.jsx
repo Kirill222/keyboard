@@ -6,8 +6,17 @@ function Keyboard({ symbols, currentCharCode }) {
   return (
     <div className={s.keyboard}>
       {symbols &&
-        symbols.map((k) => {
-          return <Key symbol={k} key={k.id} />
+        symbols.map((k, index) => {
+          let codeLower
+          if (k.lower) {
+            codeLower = k.lower.charCodeAt(0)
+          }
+
+          if (k.lower && codeLower === currentCharCode) {
+            return <Key symbol={k} key={k.id} currentKey={true} />
+          } else {
+            return <Key symbol={k} key={k.id} currentKey={false} />
+          }
         })}
     </div>
   )
