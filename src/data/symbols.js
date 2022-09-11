@@ -282,6 +282,7 @@ export const symbols = [
     id: '56',
     type: 'space',
     main: 'space',
+    code: 32,
   },
   {
     id: '57',

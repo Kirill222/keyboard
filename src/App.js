@@ -6,7 +6,7 @@ import Task from './components/Task/Task'
 import { symbols } from './data/symbols'
 
 function App() {
-  const [task, setTask] = useState('i am Batman!')
+  const [task, setTask] = useState('i am batman!')
   const [currentSymbol, setCurrentSymbol] = useState(0)
   const [currentCharCode, setCurrentCharCode] = useState(
     task.charCodeAt(currentSymbol)

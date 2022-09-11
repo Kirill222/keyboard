@@ -35,7 +35,13 @@ function Key({ symbol, currentKey }) {
 
   if (symbol.type === 'space') {
     return (
-      <div className={`${s.key} ${s.space} ${s.special}`}>{symbol.main}</div>
+      <div
+        className={`${s.key} ${s.space} ${s.special} ${
+          currentKey && s.current
+        }`}
+      >
+        {symbol.main}
+      </div>
     )
   }
 

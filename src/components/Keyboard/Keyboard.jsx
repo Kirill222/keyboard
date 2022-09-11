@@ -12,7 +12,10 @@ function Keyboard({ symbols, currentCharCode }) {
             codeLower = k.lower.charCodeAt(0)
           }
 
-          if (k.lower && codeLower === currentCharCode) {
+          if (
+            (k.lower && codeLower === currentCharCode) ||
+            (k.code && k.code === currentCharCode)
+          ) {
             return <Key symbol={k} key={k.id} currentKey={true} />
           } else {
             return <Key symbol={k} key={k.id} currentKey={false} />
