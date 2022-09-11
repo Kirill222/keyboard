@@ -1,0 +1,7 @@
+.task {
+  max-width: 600px;
+  display: grid;
+  grid-template-columns: repeat(30, 20px);
+  column-gap: 1px;
+  margin: 100px auto;
+}

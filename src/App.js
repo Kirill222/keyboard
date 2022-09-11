@@ -1,13 +1,13 @@
 import Keyboard from './components/Keyboard/Keyboard'
-import Test from './components/Keyboard/Test'
+import Task from './components/Task/Task'
 
 import { symbols } from './data/symbols'
 
 function App() {
   return (
     <div className='App'>
+      <Task task={'I am Batman!'} />
       <Keyboard symbols={symbols} />
-      <Test symbols={symbols} />
     </div>
   )
 }
