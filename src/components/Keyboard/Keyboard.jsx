@@ -16,9 +16,15 @@ function Keyboard({ symbols, currentCharCode }) {
             codeUpper = k.upper.charCodeAt(0)
           }
 
+          let codeShift
+          if (k.shift) {
+            codeShift = k.shift.charCodeAt(0)
+          }
+
           if (
             (k.lower && codeLower === currentCharCode) ||
             (k.upper && codeUpper === currentCharCode) ||
+            (k.shift && codeShift === currentCharCode) ||
             (k.code && k.code === currentCharCode)
           ) {
             return <Key symbol={k} key={k.id} currentKey={true} />
