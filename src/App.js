@@ -14,19 +14,9 @@ function App() {
     task.charCodeAt(currentSymbol)
   )
 
-  const [inputCode, setInputCode] = useState(currentCharCode)
-
   useEffect(() => {
     secretInputRef.current.focus()
   }, [])
-
-  // useEffect(() => {
-  //   // console.log(inputCode)
-
-  //   if (inputCode === currentCharCode) {
-  //     console.log('hi', inputCode)
-  //   }
-  // }, [inputCode])
 
   const next = () => {
     setCurrentSymbol((prev) => {
@@ -45,20 +35,15 @@ function App() {
     secretInputRef.current.focus()
   }
 
-  const onKeyDownHandler = (e) => {
-    let code = secretInputRef.current.value.charCodeAt(0)
-
-    // if ((code >= 97 && code <= 122) || (code >= 65 && code >= 90)) {}
-    setInputCode(code)
+  const onChangeHandler = (e) => {
+    let code = e.target.value.charCodeAt(0)
 
     if (code === currentCharCode) {
       next()
     }
 
-    secretInputRef.current.value = ''
+    e.target.value = null
   }
-
-  console.log('rerender')
 
   return (
     <div className='App' onClick={getFocusBackToInput}>
@@ -69,7 +54,8 @@ function App() {
       <input
         type='text'
         ref={secretInputRef}
-        onKeyDown={onKeyDownHandler}
+        onChange={onChangeHandler}
+        // value={inputValue}
       ></input>
     </div>
   )
