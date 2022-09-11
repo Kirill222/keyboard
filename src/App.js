@@ -18,12 +18,14 @@ function App() {
       if (prev === task.length) {
         alert('Finish')
         prev = 0
+        setCurrentCharCode(task.charCodeAt(prev))
         return prev
       }
+      setCurrentCharCode(task.charCodeAt(prev))
       return prev
     })
 
-    setCurrentCharCode(task.charCodeAt(currentSymbol))
+    // setCurrentCharCode(task.charCodeAt(currentSymbol))
   }
 
   console.log(currentCharCode)
