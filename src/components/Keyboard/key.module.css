@@ -47,3 +47,9 @@
 .key.empty {
   grid-column: auto / span 78;
 }
+
+/* Current */
+.current {
+  background-color: #79bbff;
+  color: #fff;
+}

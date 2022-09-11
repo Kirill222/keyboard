@@ -45,11 +45,6 @@ function Key({ symbol }) {
     )
   }
 
-  // switch (symbol.type) {
-  //   case 'bigonetwo':
-
-  // }
-
   if (symbol.shift) {
     return (
       <div className={`${s.key}`}>
