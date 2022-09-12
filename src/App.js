@@ -40,25 +40,29 @@ function App() {
         setCurrentCharCode(mapTask[prev].symbol.charCodeAt(0))
         task[prev].status = 'current'
         task[task.length - 1].status = 'hit'
-        // setTask([...task])
+        setTask([...task])
         return prev
       }
       setCurrentCharCode(task[prev].symbol.charCodeAt(0))
 
       task[prev].status = 'current'
-      task[prev - 1].status = 'hit'
-      // setTask([...task])
+      setTask([...task])
+
       return prev
     })
   }
 
   const onChangeHandler = (e) => {
     let code = e.target.value.charCodeAt(0)
-    if (code === currentCharCode) {
+
+    if (currentCharCode == code) {
       task[currentIndex].status = 'hit'
-      setTask([...task])
-      next()
+    } else {
+      task[currentIndex].status = 'miss'
     }
+
+    next()
+
     e.target.value = null
   }
 
