@@ -14,4 +14,13 @@ code {
 
 .App {
   height: 100vh;
+  background-color: #fcf6c3;
 }
+
+/* .secretinput {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: -1000px;
+} */

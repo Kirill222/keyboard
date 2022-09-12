@@ -8,7 +8,7 @@ import { symbols } from './data/symbols'
 function App() {
   const secretInputRef = useRef()
 
-  const [task, setTask] = useState('i am batman!')
+  const [task, setTask] = useState('Cowwabungaaa!!!')
   const [currentSymbol, setCurrentSymbol] = useState(0)
   const [currentCharCode, setCurrentCharCode] = useState(
     task.charCodeAt(currentSymbol)
@@ -52,6 +52,7 @@ function App() {
 
       <button onClick={next}>Test button</button>
       <input
+        className='secretinput'
         type='text'
         ref={secretInputRef}
         onChange={onChangeHandler}
