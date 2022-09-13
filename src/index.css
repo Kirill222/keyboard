@@ -17,10 +17,11 @@ code {
   background-color: #d6efec;
 }
 
-/* .secretinput {
+.secretinput,
+.audio {
   opacity: 0;
   width: 0;
   height: 0;
   position: absolute;
   left: -1000px;
-} */
+}

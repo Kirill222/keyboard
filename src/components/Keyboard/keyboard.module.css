@@ -1,5 +1,5 @@
 .keyboard {
-  width: 588px;
+  max-width: 670px;
   /* height: 255px; */
   margin: 100px auto;
 

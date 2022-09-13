@@ -17,6 +17,7 @@ console.log(mapTask)
 
 function App() {
   const secretInputRef = useRef()
+  const audioRef = useRef()
 
   const [task, setTask] = useState(mapTask)
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -62,23 +63,32 @@ function App() {
     }
 
     next()
-
     e.target.value = null
+  }
+
+  const onKeyDownHandler = () => {
+    audioRef.current.play()
   }
 
   return (
     <div className='App' onClick={getFocusBackToInput}>
       <Task task={task} current={currentIndex} />
       <Keyboard symbols={symbols} currentCharCode={currentCharCode} />
-
       <button onClick={next}>Test button</button>
       <input
         className='secretinput'
         type='text'
         ref={secretInputRef}
         onChange={onChangeHandler}
-        // value={inputValue}
+        onKeyDown={onKeyDownHandler}
       ></input>
+
+      <audio
+        ref={audioRef}
+        controls
+        src='/audio/key1.wav'
+        className='audio'
+      ></audio>
     </div>
   )
 }
