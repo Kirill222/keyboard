@@ -7,6 +7,9 @@
   grid-template-columns: repeat(588, 1fr);
   grid-template-rows: repeat(5, 40px);
   row-gap: 1px;
+
+  cursor: default;
+  user-select: none;
 }
 
 .key {

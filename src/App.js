@@ -74,7 +74,7 @@ function App() {
     <div className='App' onClick={getFocusBackToInput}>
       <Task task={task} current={currentIndex} />
       <Keyboard symbols={symbols} currentCharCode={currentCharCode} />
-      <button onClick={next}>Test button</button>
+      {/* <button onClick={next}>Test button</button> */}
       <input
         className='secretinput'
         type='text'
