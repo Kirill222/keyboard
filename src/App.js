@@ -3,8 +3,9 @@ import Keyboard from './components/Keyboard/Keyboard'
 import Task from './components/Task/Task'
 import Header from './components/Header/Header'
 import { symbols } from './data/symbols'
+import Progressbar from './components/Progressbar/Progressbar'
 
-let task = 'I am Batman!'
+let task = 'Wine is an alcoholic drink typically made from fermented grapes.'
 let mapTask = task.split('').map((l) => {
   return { status: '', symbol: l }
 })
@@ -113,11 +114,13 @@ function App() {
     <div className='App' onClick={getFocusBackToInput}>
       <Header isMuted={isMuted} mute={muteHandler} />
       <Task task={task} current={currentIndex} />
+      <Progressbar />
       <Keyboard
         symbols={symbols}
         currentCharCode={currentCharCode}
         isCapital={isCapital}
       />
+
       <input
         className='secretinput'
         type='text'
@@ -128,7 +131,7 @@ function App() {
       <audio
         ref={audioRef}
         // controls
-        src='/audio/33.mp3'
+        src='/audio/key1.wav'
         className='audio'
       ></audio>
     </div>

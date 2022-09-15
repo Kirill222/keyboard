@@ -1,0 +1,11 @@
+.progressbar {
+  max-width: 600px;
+  height: 3px;
+  margin: 30px auto;
+  background-color: blue;
+}
+
+.progress {
+  width: 0%;
+  height: 100%;
+}

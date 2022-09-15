@@ -1,8 +1,8 @@
 .task {
   max-width: 600px;
   display: grid;
+  row-gap: 15px;
   grid-template-columns: repeat(30, 20px);
   column-gap: 1px;
   margin: 0 auto;
-  padding-top: 100px;
 }
