@@ -1,20 +1,14 @@
 import { useState, useEffect, useRef } from 'react'
-
 import Keyboard from './components/Keyboard/Keyboard'
 import Task from './components/Task/Task'
 import Header from './components/Header/Header'
-
 import { symbols } from './data/symbols'
 
 let task = 'I am Batman!'
-
 let mapTask = task.split('').map((l) => {
   return { status: '', symbol: l }
 })
-
 mapTask[0].status = 'current'
-
-console.log(mapTask)
 
 function App() {
   const secretInputRef = useRef()
@@ -28,6 +22,7 @@ function App() {
 
   const [isCapital, setIsCapital] = useState()
   const [isMuted, setIsMuted] = useState(false)
+  const [isFinished, setIsFinished] = useState(false)
 
   const muteHandler = () => setIsMuted(!isMuted)
 
@@ -60,9 +55,10 @@ function App() {
     setCurrentIndex((prev) => {
       prev++
       if (prev === mapTask.length) {
-        prev = 0
-        setCurrentCharCode(mapTask[prev].symbol.charCodeAt(0))
-        task[prev].status = 'current'
+        //prev = 0
+        //setCurrentCharCode(mapTask[prev].symbol.charCodeAt(0))
+        //task[prev].status = 'current'
+
         task[task.length - 1].status = 'hit'
         setTask([...task])
 
@@ -82,20 +78,34 @@ function App() {
   }
 
   const onKeyDownHandler = (e) => {
+    if (isFinished) return
+
     if (!e.repeat) {
+      !isMuted && audioRef.current.play()
+
       if (e.key === task[currentIndex].symbol) {
         task[currentIndex].status = 'hit'
       } else {
         task[currentIndex].status = 'miss'
       }
 
-      if (e.key !== 'Shift') next()
+      if (currentIndex !== task.length - 1 && e.key !== 'Shift') {
+        next()
+      }
+
+      if (currentIndex === task.length - 1) {
+        if (e.key !== 'Shift' && e.key === task[currentIndex].symbol) {
+          task[task.length - 1].status = 'hit'
+          setTask([...task])
+          setIsFinished(true)
+        } else if (e.key !== 'Shift' && e.key !== task[currentIndex].symbol) {
+          task[task.length - 1].status = 'miss'
+          setTask([...task])
+          setIsFinished(true)
+        }
+      }
 
       e.target.value = null
-
-      if (!isMuted) {
-        audioRef.current.play()
-      }
     }
   }
 
