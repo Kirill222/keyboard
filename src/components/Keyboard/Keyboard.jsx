@@ -2,7 +2,7 @@ import s from './keyboard.module.css'
 
 import Key from './Key'
 
-function Keyboard({ symbols, currentCharCode }) {
+function Keyboard({ symbols, currentCharCode, isCapital }) {
   return (
     <div className={s.keyboard}>
       {symbols &&
@@ -27,9 +27,23 @@ function Keyboard({ symbols, currentCharCode }) {
             (k.shift && codeShift === currentCharCode) ||
             (k.code && k.code === currentCharCode)
           ) {
-            return <Key symbol={k} key={k.id} currentKey={true} />
+            return (
+              <Key
+                symbol={k}
+                key={k.id}
+                currentKey={true}
+                isCapital={isCapital}
+              />
+            )
           } else {
-            return <Key symbol={k} key={k.id} currentKey={false} />
+            return (
+              <Key
+                symbol={k}
+                key={k.id}
+                currentKey={false}
+                isCapital={isCapital}
+              />
+            )
           }
         })}
     </div>

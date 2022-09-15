@@ -26,11 +26,18 @@ function App() {
     mapTask[currentIndex].symbol.charCodeAt(currentIndex)
   )
 
+  const [isCapital, setIsCapital] = useState()
   const [isMuted, setIsMuted] = useState(false)
   const muteHandler = () => setIsMuted(!isMuted)
 
   useEffect(() => {
     secretInputRef.current.focus()
+
+    if (currentCharCode >= 65 && currentCharCode <= 90) {
+      setIsCapital(true)
+    } else {
+      setIsCapital(false)
+    }
   }, [])
 
   const getFocusBackToInput = () => {
@@ -46,12 +53,31 @@ function App() {
         task[prev].status = 'current'
         task[task.length - 1].status = 'hit'
         setTask([...task])
+
+        if (
+          mapTask[prev].symbol.charCodeAt(0) >= 65 &&
+          mapTask[prev].symbol.charCodeAt(0) <= 90
+        ) {
+          setIsCapital(true)
+        } else {
+          setIsCapital(false)
+        }
+
         return prev
       }
       setCurrentCharCode(task[prev].symbol.charCodeAt(0))
 
       task[prev].status = 'current'
       setTask([...task])
+
+      if (
+        mapTask[prev].symbol.charCodeAt(0) >= 65 &&
+        mapTask[prev].symbol.charCodeAt(0) <= 90
+      ) {
+        setIsCapital(true)
+      } else {
+        setIsCapital(false)
+      }
 
       return prev
     })
@@ -78,7 +104,11 @@ function App() {
     <div className='App' onClick={getFocusBackToInput}>
       <Header isMuted={isMuted} mute={muteHandler} />
       <Task task={task} current={currentIndex} />
-      <Keyboard symbols={symbols} currentCharCode={currentCharCode} />
+      <Keyboard
+        symbols={symbols}
+        currentCharCode={currentCharCode}
+        isCapital={isCapital}
+      />
       {/* <button onClick={next}>Test button</button> */}
       <input
         className='secretinput'

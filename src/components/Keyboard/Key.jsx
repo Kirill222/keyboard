@@ -1,6 +1,6 @@
 import s from './key.module.css'
 
-function Key({ symbol, currentKey }) {
+function Key({ symbol, currentKey, isCapital }) {
   if (symbol.type === 'bigonetwo') {
     return (
       <div className={`${s.key} ${s.bigonetwo} ${s.special}`}>
@@ -70,7 +70,7 @@ function Key({ symbol, currentKey }) {
           lineHeight: '26px',
         }}
       >
-        {symbol.lower}
+        {isCapital ? symbol.upper : symbol.lower}
         {/* <span>{symbol.shift}</span>
         <span>{symbol.main}</span> */}
       </div>
