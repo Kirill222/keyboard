@@ -1,0 +1,23 @@
+.hyp {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 5px solid #efc050;
+
+  animation: rotating 10s linear infinite;
+}
+
+.hyp img {
+  width: 100%;
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 
 import Keyboard from './components/Keyboard/Keyboard'
 import Task from './components/Task/Task'
+import Header from './components/Header/Header'
 
 import { symbols } from './data/symbols'
 
@@ -24,6 +25,9 @@ function App() {
   const [currentCharCode, setCurrentCharCode] = useState(
     mapTask[currentIndex].symbol.charCodeAt(currentIndex)
   )
+
+  const [isMuted, setIsMuted] = useState(false)
+  const muteHandler = () => setIsMuted(!isMuted)
 
   useEffect(() => {
     secretInputRef.current.focus()
@@ -56,7 +60,7 @@ function App() {
   const onChangeHandler = (e) => {
     let code = e.target.value.charCodeAt(0)
 
-    if (currentCharCode == code) {
+    if (currentCharCode === code) {
       task[currentIndex].status = 'hit'
     } else {
       task[currentIndex].status = 'miss'
@@ -67,11 +71,12 @@ function App() {
   }
 
   const onKeyDownHandler = () => {
-    audioRef.current.play()
+    if (!isMuted) audioRef.current.play()
   }
 
   return (
     <div className='App' onClick={getFocusBackToInput}>
+      <Header isMuted={isMuted} mute={muteHandler} />
       <Task task={task} current={currentIndex} />
       <Keyboard symbols={symbols} currentCharCode={currentCharCode} />
       {/* <button onClick={next}>Test button</button> */}
