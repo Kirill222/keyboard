@@ -45,6 +45,17 @@ function App() {
     secretInputRef.current.focus()
   }
 
+  const checkIfCapital = (index) => {
+    if (
+      mapTask[index].symbol.charCodeAt(0) >= 65 &&
+      mapTask[index].symbol.charCodeAt(0) <= 90
+    ) {
+      setIsCapital(true)
+    } else {
+      setIsCapital(false)
+    }
+  }
+
   const next = () => {
     setCurrentIndex((prev) => {
       prev++
@@ -55,14 +66,7 @@ function App() {
         task[task.length - 1].status = 'hit'
         setTask([...task])
 
-        if (
-          mapTask[prev].symbol.charCodeAt(0) >= 65 &&
-          mapTask[prev].symbol.charCodeAt(0) <= 90
-        ) {
-          setIsCapital(true)
-        } else {
-          setIsCapital(false)
-        }
+        checkIfCapital(prev)
 
         return prev
       }
@@ -71,14 +75,7 @@ function App() {
       task[prev].status = 'current'
       setTask([...task])
 
-      if (
-        mapTask[prev].symbol.charCodeAt(0) >= 65 &&
-        mapTask[prev].symbol.charCodeAt(0) <= 90
-      ) {
-        setIsCapital(true)
-      } else {
-        setIsCapital(false)
-      }
+      checkIfCapital(prev)
 
       return prev
     })
@@ -86,21 +83,19 @@ function App() {
 
   const onKeyDownHandler = (e) => {
     if (!e.repeat) {
-      let code = e.keyCode
-
       if (e.key === task[currentIndex].symbol) {
         task[currentIndex].status = 'hit'
       } else {
         task[currentIndex].status = 'miss'
       }
 
-      if (e.key !== 'Shift') {
-        next()
-      }
+      if (e.key !== 'Shift') next()
 
       e.target.value = null
 
-      if (!isMuted) audioRef.current.play()
+      if (!isMuted) {
+        audioRef.current.play()
+      }
     }
   }
 
@@ -122,8 +117,8 @@ function App() {
 
       <audio
         ref={audioRef}
-        controls
-        src='/audio/key1.wav'
+        // controls
+        src='/audio/33.mp3'
         className='audio'
       ></audio>
     </div>
