@@ -28,6 +28,7 @@ function App() {
 
   const [isCapital, setIsCapital] = useState()
   const [isMuted, setIsMuted] = useState(false)
+
   const muteHandler = () => setIsMuted(!isMuted)
 
   useEffect(() => {
@@ -83,21 +84,24 @@ function App() {
     })
   }
 
-  const onChangeHandler = (e) => {
-    let code = e.target.value.charCodeAt(0)
+  const onKeyDownHandler = (e) => {
+    if (!e.repeat) {
+      let code = e.keyCode
 
-    if (currentCharCode === code) {
-      task[currentIndex].status = 'hit'
-    } else {
-      task[currentIndex].status = 'miss'
+      if (e.key === task[currentIndex].symbol) {
+        task[currentIndex].status = 'hit'
+      } else {
+        task[currentIndex].status = 'miss'
+      }
+
+      if (e.key !== 'Shift') {
+        next()
+      }
+
+      e.target.value = null
+
+      if (!isMuted) audioRef.current.play()
     }
-
-    next()
-    e.target.value = null
-  }
-
-  const onKeyDownHandler = () => {
-    if (!isMuted) audioRef.current.play()
   }
 
   return (
@@ -109,12 +113,10 @@ function App() {
         currentCharCode={currentCharCode}
         isCapital={isCapital}
       />
-      {/* <button onClick={next}>Test button</button> */}
       <input
         className='secretinput'
         type='text'
         ref={secretInputRef}
-        onChange={onChangeHandler}
         onKeyDown={onKeyDownHandler}
       ></input>
 
