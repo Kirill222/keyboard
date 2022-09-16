@@ -46,7 +46,7 @@ function App() {
 
   useEffect(() => {
     calculateAccuracy(correct, incorrect)
-  }, [correct])
+  }, [correct, incorrect])
 
   const getFocusBackToInput = () => {
     secretInputRef.current.focus()
@@ -54,6 +54,7 @@ function App() {
 
   const calculateAccuracy = (correct, incorrect) => {
     let total = correct + incorrect
+    // if (currentIndex === task.length - 1) total = task.length
 
     if (correct > 0 || incorrect > 0) {
       let accuracy = (correct * 100) / total
@@ -88,20 +89,6 @@ function App() {
       setTask([...task])
       checkIfCapital(prev)
 
-      if (e.key === task[currentIndex].symbol && currentIndex !== task.length) {
-        setCorrect((prevv) => {
-          prevv++
-          calculateAccuracy(prevv, incorrect)
-          return prevv
-        })
-      } else {
-        setIncorrect((prevv) => {
-          prevv++
-          calculateAccuracy(correct, prevv)
-          return prevv
-        })
-      }
-
       return prev
     })
   }
@@ -121,6 +108,20 @@ function App() {
       if (currentIndex !== task.length - 1 && e.key !== 'Shift') {
         calculateProgress()
         next(e)
+      }
+
+      if (e.key === task[currentIndex].symbol && currentIndex < task.length) {
+        setCorrect((prevv) => {
+          prevv++
+          calculateAccuracy(prevv, incorrect)
+          return prevv
+        })
+      } else {
+        setIncorrect((prevv) => {
+          prevv++
+          calculateAccuracy(correct, prevv)
+          return prevv
+        })
       }
 
       if (currentIndex === task.length - 1) {
