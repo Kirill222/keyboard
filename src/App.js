@@ -100,18 +100,19 @@ function App() {
       }
 
       if (currentIndex !== task.length - 1 && e.key !== 'Shift') {
+        calculateProgress()
         next()
       }
-
-      calculateProgress()
 
       if (currentIndex === task.length - 1) {
         if (e.key !== 'Shift' && e.key === task[currentIndex].symbol) {
           task[task.length - 1].status = 'hit'
+          calculateProgress()
           setTask([...task])
           setIsFinished(true)
         } else if (e.key !== 'Shift' && e.key !== task[currentIndex].symbol) {
           task[task.length - 1].status = 'miss'
+          calculateProgress()
           setTask([...task])
           setIsFinished(true)
         }
