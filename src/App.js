@@ -5,7 +5,7 @@ import Header from './components/Header/Header'
 import { symbols } from './data/symbols'
 import Progressbar from './components/Progressbar/Progressbar'
 
-let task = 'Wine is an alcoholic drink typically made from fermented grapes.'
+let task = 'I am Batman fbfdgdfgfdgfdgdfgdfgdfdfgdfgdfdfgdfgsdfserwerwer'
 let mapTask = task.split('').map((l) => {
   return { status: '', symbol: l }
 })
@@ -25,6 +25,8 @@ function App() {
   const [isMuted, setIsMuted] = useState(false)
   const [isFinished, setIsFinished] = useState(false)
 
+  const [progress, setProgress] = useState(0)
+
   const muteHandler = () => setIsMuted(!isMuted)
 
   useEffect(() => {
@@ -39,6 +41,13 @@ function App() {
 
   const getFocusBackToInput = () => {
     secretInputRef.current.focus()
+  }
+
+  const calculateProgress = () => {
+    let progress = Math.round(100 / task.length) * currentIndex + 1
+    if (progress > 95) progress = 95
+    if (currentIndex === task.length - 1) progress = 100
+    setProgress(progress)
   }
 
   const checkIfCapital = (index) => {
@@ -94,6 +103,8 @@ function App() {
         next()
       }
 
+      calculateProgress()
+
       if (currentIndex === task.length - 1) {
         if (e.key !== 'Shift' && e.key === task[currentIndex].symbol) {
           task[task.length - 1].status = 'hit'
@@ -114,7 +125,7 @@ function App() {
     <div className='App' onClick={getFocusBackToInput}>
       <Header isMuted={isMuted} mute={muteHandler} />
       <Task task={task} current={currentIndex} />
-      <Progressbar />
+      <Progressbar progress={progress} />
       <Keyboard
         symbols={symbols}
         currentCharCode={currentCharCode}

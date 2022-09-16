@@ -2,10 +2,11 @@
   max-width: 600px;
   height: 3px;
   margin: 30px auto;
-  background-color: blue;
+  border-bottom: 1px solid #bbb;
 }
 
 .progress {
   width: 0%;
   height: 100%;
+  background-color: #78b8ff;
 }
