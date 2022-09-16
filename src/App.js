@@ -6,7 +6,7 @@ import { symbols } from './data/symbols'
 import Progressbar from './components/Progressbar/Progressbar'
 import Accuracy from './components/Statistics/Accuracy'
 
-let task = 'I am Batman fbfdgdfgfdgfdgdfgdfgdfdfgdfgdfdfgdfgsdfserwerwer'
+let task = 'aaaaaaaaaa'
 let mapTask = task.split('').map((l) => {
   return { status: '', symbol: l }
 })
@@ -28,9 +28,9 @@ function App() {
 
   const [progress, setProgress] = useState(0)
 
-  const [correct, setCorrect] = useState(0)
-  const [incorrect, setIncorrect] = useState(0)
-  const [accuracy, setAccuracy] = useState()
+  let [correct, setCorrect] = useState(0)
+  let [incorrect, setIncorrect] = useState(0)
+  let [accuracy, setAccuracy] = useState()
 
   const muteHandler = () => setIsMuted(!isMuted)
 
@@ -44,16 +44,21 @@ function App() {
     }
   }, [])
 
+  useEffect(() => {
+    calculateAccuracy(correct, incorrect)
+  }, [correct])
+
   const getFocusBackToInput = () => {
     secretInputRef.current.focus()
   }
 
-  const calculateAccuracy = (correct2, incorrect2) => {
-    let total = correct2 + incorrect2
-    if (correct2 > 0) {
-      let accuracy2 = (correct2 * 100) / total
-      console.log(accuracy2)
-      setAccuracy(accuracy2)
+  const calculateAccuracy = (correct, incorrect) => {
+    let total = correct + incorrect
+
+    if (correct > 0 || incorrect > 0) {
+      let accuracy = (correct * 100) / total
+      console.log(accuracy)
+      setAccuracy(accuracy)
     }
   }
 
@@ -75,23 +80,27 @@ function App() {
     }
   }
 
-  const next = () => {
+  const next = (e) => {
     setCurrentIndex((prev) => {
       prev++
-      if (prev === mapTask.length) {
-        task[task.length - 1].status = 'hit'
-        setTask([...task])
-
-        checkIfCapital(prev)
-
-        return prev
-      }
       setCurrentCharCode(task[prev].symbol.charCodeAt(0))
-
       task[prev].status = 'current'
       setTask([...task])
-
       checkIfCapital(prev)
+
+      if (e.key === task[currentIndex].symbol && currentIndex !== task.length) {
+        setCorrect((prevv) => {
+          prevv++
+          calculateAccuracy(prevv, incorrect)
+          return prevv
+        })
+      } else {
+        setIncorrect((prevv) => {
+          prevv++
+          calculateAccuracy(correct, prevv)
+          return prevv
+        })
+      }
 
       return prev
     })
@@ -105,24 +114,13 @@ function App() {
 
       if (e.key === task[currentIndex].symbol) {
         task[currentIndex].status = 'hit'
-
-        setCorrect((prev) => {
-          prev++
-          return prev
-        })
-        calculateAccuracy(correct, incorrect)
       } else {
         task[currentIndex].status = 'miss'
-        setIncorrect((prev) => {
-          prev++
-          return prev
-        })
-        calculateAccuracy(correct, incorrect)
       }
 
       if (currentIndex !== task.length - 1 && e.key !== 'Shift') {
         calculateProgress()
-        next()
+        next(e)
       }
 
       if (currentIndex === task.length - 1) {
@@ -163,12 +161,7 @@ function App() {
         onKeyDown={onKeyDownHandler}
       ></input>
 
-      <audio
-        ref={audioRef}
-        // controls
-        src='/audio/key1.wav'
-        className='audio'
-      ></audio>
+      <audio ref={audioRef} src='/audio/key1.wav' className='audio'></audio>
     </div>
   )
 }
