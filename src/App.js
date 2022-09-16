@@ -4,6 +4,7 @@ import Task from './components/Task/Task'
 import Header from './components/Header/Header'
 import { symbols } from './data/symbols'
 import Progressbar from './components/Progressbar/Progressbar'
+import Accuracy from './components/Statistics/Accuracy'
 
 let task = 'I am Batman fbfdgdfgfdgfdgdfgdfgdfdfgdfgdfdfgdfgsdfserwerwer'
 let mapTask = task.split('').map((l) => {
@@ -27,6 +28,10 @@ function App() {
 
   const [progress, setProgress] = useState(0)
 
+  const [correct, setCorrect] = useState(0)
+  const [incorrect, setIncorrect] = useState(0)
+  const [accuracy, setAccuracy] = useState()
+
   const muteHandler = () => setIsMuted(!isMuted)
 
   useEffect(() => {
@@ -41,6 +46,15 @@ function App() {
 
   const getFocusBackToInput = () => {
     secretInputRef.current.focus()
+  }
+
+  const calculateAccuracy = (correct2, incorrect2) => {
+    let total = correct2 + incorrect2
+    if (correct2 > 0) {
+      let accuracy2 = (correct2 * 100) / total
+      console.log(accuracy2)
+      setAccuracy(accuracy2)
+    }
   }
 
   const calculateProgress = () => {
@@ -65,10 +79,6 @@ function App() {
     setCurrentIndex((prev) => {
       prev++
       if (prev === mapTask.length) {
-        //prev = 0
-        //setCurrentCharCode(mapTask[prev].symbol.charCodeAt(0))
-        //task[prev].status = 'current'
-
         task[task.length - 1].status = 'hit'
         setTask([...task])
 
@@ -95,8 +105,19 @@ function App() {
 
       if (e.key === task[currentIndex].symbol) {
         task[currentIndex].status = 'hit'
+
+        setCorrect((prev) => {
+          prev++
+          return prev
+        })
+        calculateAccuracy(correct, incorrect)
       } else {
         task[currentIndex].status = 'miss'
+        setIncorrect((prev) => {
+          prev++
+          return prev
+        })
+        calculateAccuracy(correct, incorrect)
       }
 
       if (currentIndex !== task.length - 1 && e.key !== 'Shift') {
@@ -132,6 +153,8 @@ function App() {
         currentCharCode={currentCharCode}
         isCapital={isCapital}
       />
+
+      <Accuracy accuracy={accuracy} />
 
       <input
         className='secretinput'
