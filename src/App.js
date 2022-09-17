@@ -7,7 +7,7 @@ import Progressbar from './components/Progressbar/Progressbar'
 import Accuracy from './components/Statistics/Accuracy'
 import Timer from './components/Statistics/Timer'
 
-let task = 'I am Batman!'
+let task = 'aaaaaaaaaa'
 let mapTask = task.split('').map((l) => {
   return { status: '', symbol: l }
 })
@@ -112,9 +112,9 @@ function App() {
     if (!e.repeat) {
       !isMuted && audioRef.current.play()
 
-      if (e.key === task[currentIndex].symbol) {
+      if (e.key === task[currentIndex].symbol && e.key !== 'Shift') {
         task[currentIndex].status = 'hit'
-      } else {
+      } else if (e.key !== task[currentIndex].symbol && e.key !== 'Shift') {
         task[currentIndex].status = 'miss'
       }
 
