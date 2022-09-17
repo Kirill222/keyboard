@@ -81,7 +81,7 @@ function App() {
     }
   }
 
-  const next = (e) => {
+  const next = () => {
     setCurrentIndex((prev) => {
       prev++
       setCurrentCharCode(task[prev].symbol.charCodeAt(0))
@@ -107,7 +107,7 @@ function App() {
 
       if (currentIndex !== task.length - 1 && e.key !== 'Shift') {
         calculateProgress()
-        next(e)
+        next()
       }
 
       if (e.key === task[currentIndex].symbol && currentIndex < task.length) {
