@@ -33,7 +33,7 @@ function App() {
   let [incorrect, setIncorrect] = useState(0)
   let [accuracy, setAccuracy] = useState()
 
-  const [isTimerStarted, setIsTimerStarted] = useState(true)
+  const [isTimerStarted, setIsTimerStarted] = useState(false)
 
   const muteHandler = () => setIsMuted(!isMuted)
 
@@ -53,6 +53,15 @@ function App() {
 
   const getFocusBackToInput = () => {
     secretInputRef.current.focus()
+  }
+
+  const toggleTimer = (currentIndex, taskLength) => {
+    if (currentIndex === 0) {
+      setIsTimerStarted(true)
+    } else if (currentIndex === taskLength - 1) {
+      setIsTimerStarted(false)
+      return
+    }
   }
 
   const calculateAccuracy = (correct, incorrect) => {
@@ -98,6 +107,8 @@ function App() {
 
   const onKeyDownHandler = (e) => {
     if (isFinished) return
+
+    toggleTimer(currentIndex, task.length)
 
     if (!e.repeat) {
       !isMuted && audioRef.current.play()

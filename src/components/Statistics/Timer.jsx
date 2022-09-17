@@ -7,7 +7,7 @@ function Timer({ isTimerStarted }) {
 
   useEffect(() => {
     if (isTimerStarted) {
-      setInterval(() => {
+      var timer = setInterval(() => {
         setTime((prev) => {
           prev = prev + 0.1
           console.log(prev)
@@ -15,7 +15,8 @@ function Timer({ isTimerStarted }) {
         })
       }, 100)
     } else {
-      alert('hi')
+      console.log('hi')
+      clearInterval(timer)
     }
   }, [isTimerStarted])
 
