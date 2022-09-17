@@ -7,7 +7,7 @@ import Progressbar from './components/Progressbar/Progressbar'
 import Accuracy from './components/Statistics/Accuracy'
 import Timer from './components/Statistics/Timer'
 
-let task = 'aaaaaaaaaa'
+let task = 'I am Batman!'
 let mapTask = task.split('').map((l) => {
   return { status: '', symbol: l }
 })
@@ -58,16 +58,16 @@ function App() {
   const toggleTimer = (currentIndex, taskLength) => {
     if (currentIndex === 0) {
       setIsTimerStarted(true)
+      console.log('start')
     } else if (currentIndex === taskLength - 1) {
       setIsTimerStarted(false)
+      console.log('finish')
       return
     }
   }
 
   const calculateAccuracy = (correct, incorrect) => {
     let total = correct + incorrect
-    // if (currentIndex === task.length - 1) total = task.length
-
     if (correct > 0 || incorrect > 0) {
       let accuracy = (correct * 100) / total
       console.log(accuracy)
@@ -106,9 +106,8 @@ function App() {
   }
 
   const onKeyDownHandler = (e) => {
-    if (isFinished) return
-
     toggleTimer(currentIndex, task.length)
+    if (isFinished) return
 
     if (!e.repeat) {
       !isMuted && audioRef.current.play()
