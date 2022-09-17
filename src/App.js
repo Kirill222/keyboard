@@ -5,6 +5,7 @@ import Header from './components/Header/Header'
 import { symbols } from './data/symbols'
 import Progressbar from './components/Progressbar/Progressbar'
 import Accuracy from './components/Statistics/Accuracy'
+import Timer from './components/Statistics/Timer'
 
 let task = 'aaaaaaaaaa'
 let mapTask = task.split('').map((l) => {
@@ -31,6 +32,8 @@ function App() {
   let [correct, setCorrect] = useState(0)
   let [incorrect, setIncorrect] = useState(0)
   let [accuracy, setAccuracy] = useState()
+
+  const [isTimerStarted, setIsTimerStarted] = useState(true)
 
   const muteHandler = () => setIsMuted(!isMuted)
 
@@ -154,6 +157,7 @@ function App() {
       />
 
       <Accuracy accuracy={accuracy} />
+      <Timer isTimerStarted={isTimerStarted} />
 
       <input
         className='secretinput'
