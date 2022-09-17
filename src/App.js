@@ -7,7 +7,7 @@ import Progressbar from './components/Progressbar/Progressbar'
 import Accuracy from './components/Statistics/Accuracy'
 import Timer from './components/Statistics/Timer'
 
-let task = 'aaaaaaaaaa'
+let task = 'I am Batman!'
 let mapTask = task.split('').map((l) => {
   return { status: '', symbol: l }
 })
@@ -123,18 +123,20 @@ function App() {
         next()
       }
 
-      if (e.key === task[currentIndex].symbol && currentIndex < task.length) {
-        setCorrect((prevv) => {
-          prevv++
-          calculateAccuracy(prevv, incorrect)
-          return prevv
-        })
-      } else {
-        setIncorrect((prevv) => {
-          prevv++
-          calculateAccuracy(correct, prevv)
-          return prevv
-        })
+      if (e.key !== 'Shift') {
+        if (e.key === task[currentIndex].symbol && currentIndex < task.length) {
+          setCorrect((prevv) => {
+            prevv++
+            calculateAccuracy(prevv, incorrect)
+            return prevv
+          })
+        } else {
+          setIncorrect((prevv) => {
+            prevv++
+            calculateAccuracy(correct, prevv)
+            return prevv
+          })
+        }
       }
 
       if (currentIndex === task.length - 1) {
