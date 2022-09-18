@@ -7,7 +7,7 @@ import Progressbar from './components/Progressbar/Progressbar'
 import Accuracy from './components/Statistics/Accuracy'
 import Timer from './components/Statistics/Timer'
 
-let task = 'he is Batman!'
+let task = 'Cowwabungaaaa!!!!'
 let mapTask = task.split('').map((l) => {
   return { status: '', symbol: l }
 })
@@ -121,7 +121,6 @@ function App() {
       setIsFinished(false)
       setIsTimerStarted('reset')
       checkIfCapital(0)
-      console.log(reset)
       setCorrect(0)
       setIncorrect(0)
       setProgress(0)
@@ -132,10 +131,6 @@ function App() {
 
     if (isFinished) return
     toggleTimer(currentIndex, task.length)
-
-    if (!isMuted && !e.repeat) {
-      audioRef.current.play()
-    }
 
     if (!e.repeat && e.key !== 'Shift') {
       if (e.key === task[currentIndex].symbol) {
@@ -177,6 +172,7 @@ function App() {
         }
       }
 
+      audioRef.current.play()
       e.target.value = null
     }
   }
