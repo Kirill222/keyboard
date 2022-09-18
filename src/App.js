@@ -7,7 +7,7 @@ import Progressbar from './components/Progressbar/Progressbar'
 import Accuracy from './components/Statistics/Accuracy'
 import Timer from './components/Statistics/Timer'
 
-let task = 'I am Batman!'
+let task = 'he is Batman!'
 let mapTask = task.split('').map((l) => {
   return { status: '', symbol: l }
 })
@@ -112,6 +112,9 @@ function App() {
         return t
       })
       reset[0].status = 'current'
+      setCurrentCharCode(reset[0].symbol.charCodeAt(0))
+      setIsFinished(false)
+      checkIfCapital(0)
       console.log(reset)
       setProgress(0)
       setCurrentIndex(0)
