@@ -7,7 +7,10 @@ function Timer({ isTimerStarted }) {
 
   useEffect(() => {
     let timer
-    if (isTimerStarted) {
+    if (isTimerStarted === 'reset') {
+      setTime(0)
+      return () => clearInterval(timer)
+    } else if (isTimerStarted) {
       timer = setInterval(() => {
         setTime((prev) => {
           prev = prev + 0.1

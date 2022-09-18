@@ -31,7 +31,7 @@ function App() {
 
   let [correct, setCorrect] = useState(0)
   let [incorrect, setIncorrect] = useState(0)
-  let [accuracy, setAccuracy] = useState()
+  let [accuracy, setAccuracy] = useState(0)
 
   const [isTimerStarted, setIsTimerStarted] = useState(false)
 
@@ -67,6 +67,11 @@ function App() {
   }
 
   const calculateAccuracy = (correct, incorrect) => {
+    if (correct === 0 && incorrect === 0) {
+      setAccuracy(0)
+      return
+    }
+
     let total = correct + incorrect
     if (correct > 0 || incorrect > 0) {
       let accuracy = (correct * 100) / total
@@ -114,8 +119,11 @@ function App() {
       reset[0].status = 'current'
       setCurrentCharCode(reset[0].symbol.charCodeAt(0))
       setIsFinished(false)
+      setIsTimerStarted('reset')
       checkIfCapital(0)
       console.log(reset)
+      setCorrect(0)
+      setIncorrect(0)
       setProgress(0)
       setCurrentIndex(0)
       setTask([...reset])
@@ -194,7 +202,7 @@ function App() {
         onKeyDown={onKeyDownHandler}
       ></input>
 
-      <audio ref={audioRef} src='/audio/key1.wav' className='audio'></audio>
+      <audio ref={audioRef} src='/audio/22.mp3' className='audio'></audio>
     </div>
   )
 }
