@@ -106,46 +106,59 @@ function App() {
   }
 
   const onKeyDownHandler = (e) => {
-    toggleTimer(currentIndex, task.length)
+    if (e.key === 'Escape') {
+      let reset = task.map((t) => {
+        t.status = ''
+        return t
+      })
+      reset[0].status = 'current'
+      console.log(reset)
+      setProgress(0)
+      setCurrentIndex(0)
+      setTask([...reset])
+      return
+    }
+
     if (isFinished) return
+    toggleTimer(currentIndex, task.length)
 
-    if (!e.repeat) {
-      !isMuted && audioRef.current.play()
+    if (!isMuted && !e.repeat) {
+      audioRef.current.play()
+    }
 
-      if (e.key === task[currentIndex].symbol && e.key !== 'Shift') {
+    if (!e.repeat && e.key !== 'Shift') {
+      if (e.key === task[currentIndex].symbol) {
         task[currentIndex].status = 'hit'
-      } else if (e.key !== task[currentIndex].symbol && e.key !== 'Shift') {
+      } else {
         task[currentIndex].status = 'miss'
       }
 
-      if (currentIndex !== task.length - 1 && e.key !== 'Shift') {
+      if (currentIndex !== task.length - 1) {
         calculateProgress()
         next()
       }
 
-      if (e.key !== 'Shift') {
-        if (e.key === task[currentIndex].symbol && currentIndex < task.length) {
-          setCorrect((prevv) => {
-            prevv++
-            calculateAccuracy(prevv, incorrect)
-            return prevv
-          })
-        } else {
-          setIncorrect((prevv) => {
-            prevv++
-            calculateAccuracy(correct, prevv)
-            return prevv
-          })
-        }
+      if (e.key === task[currentIndex].symbol && currentIndex < task.length) {
+        setCorrect((prevv) => {
+          prevv++
+          calculateAccuracy(prevv, incorrect)
+          return prevv
+        })
+      } else {
+        setIncorrect((prevv) => {
+          prevv++
+          calculateAccuracy(correct, prevv)
+          return prevv
+        })
       }
 
       if (currentIndex === task.length - 1) {
-        if (e.key !== 'Shift' && e.key === task[currentIndex].symbol) {
+        if (e.key === task[currentIndex].symbol) {
           task[task.length - 1].status = 'hit'
           calculateProgress()
           setTask([...task])
           setIsFinished(true)
-        } else if (e.key !== 'Shift' && e.key !== task[currentIndex].symbol) {
+        } else if (e.key !== task[currentIndex].symbol) {
           task[task.length - 1].status = 'miss'
           calculateProgress()
           setTask([...task])
